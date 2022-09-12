@@ -16,9 +16,6 @@ export default (config, env, helpers) => {
       path.resolve(__dirname, "./public"),
     ],
   };
-  /*  config.devServer= [ */
-  /*    watchOptions: { */
-  /* }]; */
   config.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
