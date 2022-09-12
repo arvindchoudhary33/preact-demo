@@ -11,7 +11,9 @@ export default (config, env, helpers) => {
     ignored: [
       /* path.resolve(__dirname, "dist"), */
       /* path.resolve(__dirname, "node_modules"), */
-      path.resolve(__dirname, "./public"), // image folder path
+
+      // TODO : Comment the below line to see the difference ( hehe )
+      path.resolve(__dirname, "./public"),
     ],
   };
   /*  config.devServer= [ */
