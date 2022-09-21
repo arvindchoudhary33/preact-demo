@@ -1,33 +1,57 @@
 import { h } from "preact";
+import { useEffect, useState } from "preact/hooks";
 import style from "./style.css";
 
-/* import chokidar from "chokidar"; */
-/* const watcher = chokidar.watch("../../../public", { */
-/*   ignored: /^\./, */
-/*   persistent: true, */
-/* }); */
-const Home = () => {
-  function importAll(r) {
-    let images = {};
-    r.keys().map((item, index) => {
-      images[item.replace("./", "")] = r(item);
-    });
-    return images;
-  }
-  /* const images = importAll( */
-  /*   require.context("../../../public", false, /\.(png|jpe?g|svg)$/) */
-  /* ); */
+function importAll(r) {
+  let images = {};
+  r.keys().map((item, index) => {
+    images[item.replace("./", "")] = r(item);
+  });
+  return images;
+}
 
-  const imagesSRC = importAll(
-    require.context("../../../src/assets", false, /\.(png|jpe?g|svg)$/)
-  );
-  /* const tasks = Object.keys(images); */
-  const src = Object.keys(imagesSRC);
+const imagesSRC = importAll(
+  require.context("../../../src/assets", false, /\.(png|jpe?g|svg)$/)
+);
+
+const src = Object.keys(imagesSRC);
+const Home = () => {
+  const [count, setCount] = useState(0);
+
+  // Save timer ref and return cleanup function to clear it
+  useEffect(() => {
+    const timerId = setInterval(() => {
+      // Use a functional state update to correctly increment the count
+      setCount((count) => count + 1);
+    }, 3000);
+
+    return () => clearInterval(timerId);
+  }, []);
+
+  const image = src[count % src.length];
+  const image2 = src[(count + 1) % src.length];
+  const image3 = src[(count + 1) % src.length];
+  console.log(image);
   console.log(src);
-  /* console.log(tasks[0]); */
-  /* console.log(images); */
   return (
     <div class={style.home}>
+      <p>loading interval images</p>
+      <img
+        style="width:400px; height:400px;"
+        src={image}
+        alt="interval image"
+      />
+      <img
+        style="width:400px; height:400px"
+        src={image2}
+        alt="interval image 2"
+      />
+
+      <img
+        style="width:400px; height:400px"
+        src={image3}
+        alt="interval image 3"
+      />
       {/* <img src={tasks[0]} /> */}
       {src.map((key, index) => (
         <div>
