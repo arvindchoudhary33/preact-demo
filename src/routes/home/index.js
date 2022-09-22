@@ -20,17 +20,21 @@ const Home = () => {
 
   // Save timer ref and return cleanup function to clear it
   useEffect(() => {
+    console.log(count);
+    if (count > src.length) {
+      return;
+    }
     const timerId = setInterval(() => {
       // Use a functional state update to correctly increment the count
-      setCount((count) => count + 1);
-    }, 3000);
+      setCount((count) => count + 2);
+    }, 300);
 
     return () => clearInterval(timerId);
-  }, []);
+  }, [count]);
 
-  const image = src[count % src.length];
-  const image2 = src[(count + 1) % src.length];
-  const image3 = src[(count + 1) % src.length];
+  const image = src[(count - 2) % src.length];
+  const image2 = src[(count - 1) % src.length];
+  const image3 = src[count % src.length];
   console.log(image);
   console.log(src);
   return (
@@ -38,18 +42,18 @@ const Home = () => {
       <p>loading interval images</p>
       <img
         style="width:400px; height:400px;"
-        src={image}
+        src={"./assets/" + image}
         alt="interval image"
       />
       <img
         style="width:400px; height:400px"
-        src={image2}
+        src={"./assets/" + image2}
         alt="interval image 2"
       />
 
       <img
         style="width:400px; height:400px"
-        src={image3}
+        src={"./assets/" + image3}
         alt="interval image 3"
       />
       {/* <img src={tasks[0]} /> */}
@@ -58,7 +62,7 @@ const Home = () => {
           <img
             style="height:100px; width:100px;"
             key={index}
-            src={key}
+            src={"./assets/" + key}
             alt={key}
           />
         </div>
