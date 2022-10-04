@@ -3,3 +3,8 @@
   min-height: 100%;
   width: 100%;
 }
+img {
+  border: 1px solid lightGray;
+  padding: 5px;
+  margin-left: 15px;
+}
